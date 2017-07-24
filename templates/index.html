@@ -1,24 +1,56 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row-container">
-    {% for message in object_list %}
+    {% if user.is_authenticated %}
+        {% for message in object_list %}
 
-    <div class="row chirp">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <p>
-                    {% if user == message.user %}
-                    <span class="label label-primary username">@{{ message.user.username }}</span>
-                    {% else %}
-                    <span class="label label-default username">@{{ message.user.username }}</span>
-                    {% endif %}
-                    <small>{{ message.created }}</small>
-                </p>
-                <p>{{ message }}</p>
+        <div class="row chirp">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>
+                        {% if user == message.user %}
+                        <span class="label label-primary username">@{{ message.user.username }}</span>
+                        {% else %}
+                        <span class="label label-default username">@{{ message.user.username }}</span>
+                        {% endif %}
+                        <small>{{ message.created }}</small>
+                    </p>
+                    <p>{{ message }}</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    {% endfor %}
+        {% endfor %}{% for message in object_list %}
+
+        <div class="row chirp">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>
+                        {% if user == message.user %}
+                        <span class="label label-primary username">@{{ message.user.username }}</span>
+                        {% else %}
+                        <span class="label label-default username">@{{ message.user.username }}</span>
+                        {% endif %}
+                        <small>{{ message.created }}</small>
+                    </p>
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    {% else %}
+    <div class="register-box" style="margin-top: 160px">
+        <div class="register-logo">
+            <a href=""><b>CHIRP</b></a>
+        </div>
+        <div class="register-box-body">
+            <h3 style="text-align: center">Welcome to CHIRP.</h3>
+            <p>CHIRP is an online news and social networking service where users post and interact with messages, "chirps".</p>
+            <p>Connect with your friends — and other fascinating people. Get in-the-moment updates on the things that interest you. And watch events unfold, in real time, from every angle.</p>
+            <p>But first, you have to login into your account or create a new user account.</p>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

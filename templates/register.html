@@ -1,38 +1,52 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="post" class="register-form">
-    {% csrf_token %}
-    <p>
-        <label for="id_first_name">First name:</label>
-        <input type="text" name="first_name" maxlength="30" id="id_first_name" class="{% if form.first_name.errors %} error-field {% endif %}"/>
-        {{ form.first_name.errors }}
-    </p>
-    <p>
-        <label for="id_last_name">Last name:</label>
-        <input type="text" name="last_name" maxlength="30" id="id_last_name" class="{% if form.last_name.errors %} error-field {% endif %}"/>
-        {{ form.last_name.errors }}
-    </p>
-    <p>
-        <label for="id_username">Username:</label>
-        <input type="text" name="username" maxlength="150" required id="id_username"
-        class="{% if form.username.errors %} error-field {% endif %}"/>
-        {{ form.username.errors }}
-    </p>
-    <p>
-        <label for="id_email">Email address:</label>
-        <input type="email" name="email" maxlength="254" id="id_email" class="{% if form.email.errors %} error-field {% endif %}"/>
-        {{ form.email.errors }}
-    </p>
-    <p>
-        <label for="id_password">Password:</label>
-        <input type="password" name="password" class="password-field" maxlength="128" required id="id_password" class="{% if form.password.errors %} error-field {% endif %}"/>
-        {{ form.password.errors }}
-    </p>
-    <p>
-        <label for="id_retype_password">Retype password:</label>
-        <input type="password" name="retype_password" required id="id_retype_password" class="{% if form.retype_password.errors %} error-field {% endif %}"/>
-        {{ form.retype_password.errors }}
-    </p>
-    <button type="submit">Register</button>
-</form>
+<div class="register-box">
+    <div class="register-logo">
+        <a href=""><b>CHIRP</b></a>
+    </div>
+    <div class="register-box-body">
+        <p class="register-box-msg">Register a new user</p>
+        <form method="post" class="register-form" style="margin-top: 0px">
+            {% csrf_token %}
+            <div class="form-group has-feedback">
+                <input type="text" name="first_name" maxlength="30" id="id_first_name" class="form-control {% if form.first_name.errors %} error-field {% endif %}" placeholder="First name"/>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                {{ form.first_name.errors }}
+            </div>
+            <div class="form-group has-feedback">
+                <input type="text" name="last_name" maxlength="30" id="id_last_name" class="form-control {% if form.last_name.errors %} error-field {% endif %}" placeholder="Last name"/>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                {{ form.last_name.errors }}
+            </div>
+            <div class="form-group has-feedback">
+                <input type="text" name="username" maxlength="150" required id="id_username" class="form-control {% if form.username.errors %} error-field {% endif %}" placeholder="Username"/>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                {{ form.username.errors }}
+            </div>
+            <div class="form-group has-feedback">
+                <input type="email" name="email" maxlength="254" id="id_email" class="form-control {% if form.email.errors %} error-field {% endif %}" placeholder="Email"/>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                {{ form.email.errors }}
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="password" class="password-field form-control" maxlength="128" required id="id_password" class="{% if form.password.errors %} error-field {% endif %}" placeholder="Password"/>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                {{ form.password.errors }}
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name="retype_password" required id="id_retype_password" class="form-control {% if form.retype_password.errors %} error-field {% endif %}" placeholder="Retype password"/>
+                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                {{ form.retype_password.errors }}
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <a href="{% url 'login' %}" class="text-center">I already am a user.</a>
+                </div>
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
