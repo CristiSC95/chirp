@@ -2,6 +2,14 @@
 {% block content %}
 <div class="row-container" style="margin-top: 10px; ">
     {% if request.user.is_authenticated %}
+        <form method="post" action="{% url 'chirp' %}">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{ request.user.id }}"/>
+            <label for="id_status">Status:</label>
+            <input type="text" name="status" id="id_status" class="{% if form.status.error %} error-field {% endif %}"/>
+            {{ form.status.error }}
+            <button type="submit">Chirp!</button>
+        </form>
         {% for message in object_list %}
         <div class="row chirp">
             <div class="panel panel-default">

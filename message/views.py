@@ -9,7 +9,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.list import ListView
 
-from message.forms import RegisterForm
+from message.forms import RegisterForm, MessageForm
 from message.models import Message, Follow
 
 
@@ -59,3 +59,28 @@ def follow_user(request, username):
     except IntegrityError:
         messages.error(request, "You are already following this user")
     return redirect('profile', username)
+
+
+def unfollow_user(request, username):
+    user = get_object_or_404(User, username=username)
+    try:
+        follow = Follow.objects.get(followed_user=user, following_user=request.user)
+        follow.delete()
+        messages.info(request, "You are now unfollowing {0}".format(username))
+    except IntegrityError:
+        messages.error(request, "You are already unfollowing this user")
+    return redirect('profile', username)
+
+def new_chirp(request):
+    if request.method == "POST":
+        form = MessageForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect('index')
+
+def new_chirp_from_profile(request):
+    if request.method == "POST":
+        form = MessageForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect('my-profile')

@@ -8,7 +8,10 @@
         <span>{{ object.email }}</span><br>
         {% if request.user != object %}
             {% if object in following %}
-                <button type="submit" class="btn btn-primary follow">Unfollow</button>
+                <form method="post" action="{% url 'unfollow_user' object.username %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary follow">Unfollow</button>
+                </form>
             {% else %}
                 <form method="post" action="{% url 'follow_user' object.username %}">
                     {% csrf_token %}
@@ -18,6 +21,14 @@
         {% endif %}
     </div>
     <div class="col-xs-9" style="padding: 0px;">
+        <form method="post" action="{% url 'chirp-from-profile' %}">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{ request.user.id }}"/>
+            <label for="id_status">Status:</label>
+            <input type="text" name="status" id="id_status" class="{% if form.status.error %} error-field {% endif %}"/>
+            {{ form.status.error }}
+            <button type="submit">Chirp!</button>
+        </form>
         <div class="panel with-nav-tabs panel-default">
             <div class="panel-heading">
                 <ul class="nav nav-tabs">
