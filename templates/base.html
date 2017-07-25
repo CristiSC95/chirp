@@ -29,14 +29,24 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'index' %}">
                 <img alt="" src="{% static 'images/logo.png' %}"></a>
-            <a class="navbar-brand" href="#">Chirp</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Chirp</a>
         </div>
+        {% if messages %}
+        <div class="alert alert-success" role="alert">
+            <ul class="messages">
+                {% for message in messages %}
+                <li
+                {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <ul class="nav navbar-nav navbar-right" style="margin-right: 0px">
-                <li style="margin-top: 15px; margin-right: 10px;">{{ user }}</li>
+                <li style="margin-top: 15px; margin-right: 10px;"><a href="{% url 'my-profile' %}" style="padding: 0px">{{ request.user }}</a></li>
                 <li><button type="button" onClick="location.href='{% url 'logout' %}'" class="btn btn-default navbar-btn">Logout</button></li>
             </ul>
             {% else %}
@@ -48,7 +58,7 @@
         </div>
     </div>
 </nav>
-<div class="container aligned">
+<div class="container aligned" style="margin-top: 60px; width: 800px ">
     {% block content %}{% endblock %}
 </div>
 </body>

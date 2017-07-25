@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-xs-3">
+        <span class="glyphicon glyphicon-user profile-icon" aria-hidden="true"></span><br>
+        <span>{{ object.first_name }} {{ object.last_name }}</span><br>
+        <span>@{{ object.username }}</span><br>
+        <span>{{ object.email }}</span><br>
+        {% if request.user != object %}
+            {% if object in following %}
+                <button type="submit" class="btn btn-primary follow">Unfollow</button>
+            {% else %}
+                <form method="post" action="{% url 'follow_user' object.username %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary follow">Follow</button>
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="col-xs-9" style="padding: 0px;">
+        <div class="panel with-nav-tabs panel-default">
+            <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1default" data-toggle="tab">Chirps</a></li>
+                    <li><a href="#tab2default" data-toggle="tab">Following</a></li>
+                    <li><a href="#tab3default" data-toggle="tab">Followers</a></li>
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab1default">
+                        {% for message in chirps %}
+                        <div class="row chirp">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <p>
+                                        {% if request.user == message.user %}
+                                        <span class="label label-primary username">@{{ message.user.username }}</span>
+                                        {% else %}
+                                        <span class="label label-default username">@{{ message.user.username }}</span>
+                                        {% endif %}
+                                        <small>{{ message.created }}</small>
+                                    </p>
+                                    <p>{{ message }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane fade" id="tab2default">Following</div>
+                    <div class="tab-pane fade" id="tab3default">Followers</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

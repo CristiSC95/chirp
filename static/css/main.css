@@ -25,3 +25,17 @@ h2 {
     margin-bottom: 10px;
     font-size: 30px;
 }
+
+.follow {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.panel.with-nav-tabs.panel-default{
+    border: none;
+}
+.panel-heading{
+    padding: 0px;
+    border: none;
+    background: transparent;
+}

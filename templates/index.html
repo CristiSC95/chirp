@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row-container">
-    {% if user.is_authenticated %}
+<div class="row-container" style="margin-top: 10px; ">
+    {% if request.user.is_authenticated %}
         {% for message in object_list %}
-
         <div class="row chirp">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <p>
-                        {% if user == message.user %}
+                        {% if request.user == message.user %}
                         <span class="label label-primary username">@{{ message.user.username }}</span>
                         {% else %}
                         <span class="label label-default username">@{{ message.user.username }}</span>
@@ -19,28 +18,9 @@
                 </div>
             </div>
         </div>
-
-        {% endfor %}{% for message in object_list %}
-
-        <div class="row chirp">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <p>
-                        {% if user == message.user %}
-                        <span class="label label-primary username">@{{ message.user.username }}</span>
-                        {% else %}
-                        <span class="label label-default username">@{{ message.user.username }}</span>
-                        {% endif %}
-                        <small>{{ message.created }}</small>
-                    </p>
-                    <p>{{ message }}</p>
-                </div>
-            </div>
-        </div>
-
         {% endfor %}
     {% else %}
-    <div class="register-box" style="margin-top: 160px">
+    <div class="register-box">
         <div class="register-logo">
             <a href=""><b>CHIRP</b></a>
         </div>
