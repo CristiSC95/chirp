@@ -2,14 +2,14 @@
 {% block content %}
 <div class="row-container" style="margin-top: 10px; ">
     {% if request.user.is_authenticated %}
-        <div style="margin-bottom: 50px">
-            <div class="login-box-body" style="margin:0px auto; width: 500px; height: 70px;">
-                <form method="post" action="{% url 'chirp' %}">
+        <div style="margin-bottom: 70px">
+            <div class="panel panel-default" style="margin:0px auto; width: 500px; height: 70px;">
+                <form accept-charset="UTF-8" method="post" action="{% url 'chirp' %}">
                     {% csrf_token %}
                     <input type="hidden" name="user" value="{{ request.user.id }}"/>
                     <div class="form-group has-feedback">
-                        <input type="text" name="status" id="id_status" class="form-control {% if form.status.error %} error-field {% endif %}"/>
-                        <span class="glyphicon glyphicon-send form-control-feedback"></span>
+                        <textarea type="text" name="status" id="id_status" placeholder="Type in your message" rows="3" class="form-control counted {% if form.status.error %} error-field {% endif %}"></textarea>
+                        <h6 class="pull-left" id="counter">140 characters remaining</h6>
                     </div>
                     {{ form.status.error }}
                     <button type="submit" class="btn btn-primary btn-block btn-flat" style="width: 70px; float: right;">Chirp!</button>

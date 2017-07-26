@@ -19,22 +19,33 @@
                 </form>
             {% endif %}
         {% endif %}
+
+        {% if messages %}
+        <div class="alert alert-success alert-dismissable fade in" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {% for message in messages %}
+                <strong {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</strong>
+                {% endfor %}
+        </div>
+        {% endif %}
     </div>
     <div class="col-xs-9" style="padding: 0px;">
-       <div style="margin-bottom: 50px">
-            <div class="login-box-body" style="margin:0px auto; width: 500px; height: 70px;">
-                <form method="post" action="{% url 'chirp' %}">
+        {%if request.user == object %}
+        <div style="margin-bottom: 70px">
+            <div class="panel panel-default" style="margin:0px auto; width: 500px; height: 70px;">
+                <form accept-charset="UTF-8" method="post" action="{% url 'chirp-from-profile' %}">
                     {% csrf_token %}
                     <input type="hidden" name="user" value="{{ request.user.id }}"/>
                     <div class="form-group has-feedback">
-                        <input type="text" name="status" id="id_status" class="form-control {% if form.status.error %} error-field {% endif %}"/>
-                        <span class="glyphicon glyphicon-send form-control-feedback"></span>
+                        <textarea type="text" name="status" id="id_status" placeholder="Type in your message" rows="3" class="form-control counted {% if form.status.error %} error-field {% endif %}"></textarea>
+                        <h6 class="pull-left" id="counter">140 characters remaining</h6>
                     </div>
                     {{ form.status.error }}
                     <button type="submit" class="btn btn-primary btn-block btn-flat" style="width: 70px; float: right;">Chirp!</button>
                 </form>
             </div>
         </div>
+        {% endif %}
         <div class="panel with-nav-tabs panel-default">
             <div class="panel-heading">
                 <ul class="nav nav-tabs">
@@ -64,8 +75,12 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <div class="tab-pane fade" id="tab2default">Following</div>
-                    <div class="tab-pane fade" id="tab3default">Followers</div>
+                    <div class="tab-pane fade" id="tab2default">
+                        Following
+                    </div>
+                    <div class="tab-pane fade" id="tab3default">
+                        Followers
+                    </div>
                 </div>
             </div>
         </div>
