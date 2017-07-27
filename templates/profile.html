@@ -70,16 +70,40 @@
                                         <small>{{ message.created }}</small>
                                     </p>
                                     <p>{{ message }}</p>
+                                    <div style="float:right;">
+                                        <button type="button" class="btn btn-primary like-message" data-messageid="{{ message.id }}" {% if request.user in message.like_users %} style="color:green" {% endif %}>
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default dislike-message" data-messageid="{{ message.id }}" {% if request.user in message.dislike_users %} style="color:red" {% endif %}>
+                                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
                     <div class="tab-pane fade" id="tab2default">
-                        Following
+                        {% for user in following %}
+                        <div class="row chirp">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <p> You are following  <a href="{% url 'profile' user.username %}">{{ user }}</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                     <div class="tab-pane fade" id="tab3default">
-                        Followers
+                        {% for user in followers %}
+                        <div class="row chirp">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <p> You are followed by <a href="{% url 'profile' user.username %}">{{ user }}</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
