@@ -19,7 +19,7 @@
         {% for message in object_list %}
         <div class="row chirp">
             <div class="panel panel-default">
-                <div class="panel-body">
+                <div class="panel-body" style="word-wrap: break-word;">
                     <p>
                         {% if request.user == message.user %}
                         <span class="label label-primary username">@{{ message.user.username }}</span>
@@ -29,6 +29,14 @@
                         <small>{{ message.created }}</small>
                     </p>
                     <p>{{ message }}</p>
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-primary like-message">
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-default dislike-message">
+                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

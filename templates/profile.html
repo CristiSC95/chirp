@@ -60,7 +60,7 @@
                         {% for message in chirps %}
                         <div class="row chirp">
                             <div class="panel panel-default">
-                                <div class="panel-body">
+                                <div class="panel-body" style="word-wrap: break-word;">
                                     <p>
                                         {% if request.user == message.user %}
                                         <span class="label label-primary username">@{{ message.user.username }}</span>

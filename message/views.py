@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView
@@ -84,3 +86,10 @@ def new_chirp_from_profile(request):
         if form.is_valid():
             form.save()
     return redirect('my-profile')
+
+@csrf_exempt
+def like_message(request):
+    if request.method == "POST":
+        print('Nu-mi pasa!')
+
+        return JsonResponse({'success':'true'})

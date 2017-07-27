@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
 
 from message.views import RegisterView, TimelineView, MyProfileView, ProfileView, follow_user, unfollow_user, new_chirp, \
-    new_chirp_from_profile
+    new_chirp_from_profile, like_message
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^follow/(?P<username>[-\w]+)/$', login_required(follow_user), name='follow_user'),
     url(r'^unfollow/(?P<username>[-\w]+)/$', login_required(unfollow_user), name='unfollow_user'),
     url(r'^chirp/', login_required(new_chirp), name='chirp'),
-    url(r'^chirp-from-profile/', login_required(new_chirp_from_profile), name='chirp-from-profile')
+    url(r'^chirp-from-profile/', login_required(new_chirp_from_profile), name='chirp-from-profile'),
+    url(r'like/$', login_required(like_message), name='like')
 ]
